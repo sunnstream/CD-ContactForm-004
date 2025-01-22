@@ -6,10 +6,16 @@ window.Webflow.push(() => {
   const formState = {
     currentStep: 0
   };
+  console.log('Initial form state:', formState);
+
   // Get form elements
   const nextButtons = document.querySelectorAll('[data-action="next"]');
   const prevButtons = document.querySelectorAll('[data-action="previous"]');
   const slider = document.querySelector('.contact_slider');
+  console.log('Next buttons found:', nextButtons.length);
+  console.log('Previous buttons found:', prevButtons.length);
+  console.log('Slider element:', slider);
+
   // Function to go to the next slide
   function goToNextStep() {
     console.log('Attempting to go to next step:', formState.currentStep);
@@ -17,6 +23,7 @@ window.Webflow.push(() => {
     console.log('Advanced to step:', formState.currentStep);
     // Trigger the next slide using Webflow's slider API
     const rightArrow = $(slider).find('.w-slider-arrow-right');
+    console.log('Right arrow found:', rightArrow.length);
     if (rightArrow.length) {
       rightArrow[0].click(); // Ensure the click event is triggered on the first arrow element
       console.log('Slider advanced to next slide');
@@ -24,6 +31,7 @@ window.Webflow.push(() => {
       console.error('Slider right arrow not found');
     }
   }
+
   // Function to go to the previous slide
   function goToPreviousStep() {
     if (formState.currentStep > 0) {
@@ -31,6 +39,7 @@ window.Webflow.push(() => {
       console.log('Returned to step:', formState.currentStep);
       // Trigger the previous slide using Webflow's slider API
       const leftArrow = $(slider).find('.w-slider-arrow-left');
+      console.log('Left arrow found:', leftArrow.length);
       if (leftArrow.length) {
         leftArrow[0].click(); // Ensure the click event is triggered on the first arrow element
         console.log('Slider moved to previous slide');
@@ -41,6 +50,7 @@ window.Webflow.push(() => {
       console.log('Already at the first step, cannot go back further.');
     }
   }
+
   // Event listeners for next buttons
   nextButtons.forEach(button => {
     button.addEventListener('click', (e) => {
@@ -49,6 +59,7 @@ window.Webflow.push(() => {
       goToNextStep();
     });
   });
+
   // Event listeners for previous buttons
   prevButtons.forEach(button => {
     button.addEventListener('click', (e) => {
@@ -57,8 +68,10 @@ window.Webflow.push(() => {
       goToPreviousStep();
     });
   });
+
   // Initialize slide visibility
   console.log('Slider initialized, current step:', formState.currentStep);
+
   const validationRules = {
     0: () => true, // Allow step 0 to always pass validation
     1: () => true, // Allow step 1 to always pass validation
@@ -66,6 +79,7 @@ window.Webflow.push(() => {
     3: () => true, // Allow step 3 to always pass validation
     4: () => true  // Allow step 4 to always pass validation
   };
+
   function validateStep1() {
     const firstName = document.getElementById('First-name').value;
     const lastName = document.getElementById('Last-name').value;
@@ -85,6 +99,7 @@ window.Webflow.push(() => {
     toggleError('product', products.length === 0);
     return firstName && lastName && isValidEmail(email) && isValidPhone(phone) && products.length > 0;
   }
+
   function validateStep2() {
     // Validate radio buttons
     const selectedRadio = document.querySelector('input[name="radio-group"]:checked');
@@ -101,6 +116,7 @@ window.Webflow.push(() => {
     console.log('Step 2 validation result:', isValid);
     return isValid;
   }
+
   function validateStep3() {
     // Add your validation logic for step 3 here
     const anotherField = document.getElementById('another-field-id').value;
@@ -108,7 +124,6 @@ window.Webflow.push(() => {
     console.log('Step 3 validation:', isValid, 'Field value:', anotherField);
     return isValid;
   }
- 
 });
 
 document.addEventListener('DOMContentLoaded', () => {
