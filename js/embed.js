@@ -25,6 +25,9 @@ window.Webflow.push(() => {
     const rightArrow = $(slider).find('.w-slider-arrow-right');
     console.log('Right arrow found:', rightArrow.length);
     if (rightArrow.length) {
+      console.log('Right arrow element:', rightArrow[0]);
+      console.log('Right arrow is visible:', rightArrow.is(':visible'));
+      console.log('Right arrow is enabled:', !rightArrow.is(':disabled'));
       rightArrow[0].click(); // Ensure the click event is triggered on the first arrow element
       console.log('Slider advanced to next slide');
     } else {
